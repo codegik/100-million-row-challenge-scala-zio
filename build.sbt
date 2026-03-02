@@ -4,6 +4,8 @@ version := "0.1.0"
 
 scalaVersion := "3.3.1"
 
+Compile / mainClass := Some("Main")
+
 libraryDependencies ++= Seq(
   "dev.zio" %% "zio" % "2.0.19",
   "dev.zio" %% "zio-streams" % "2.0.19",
