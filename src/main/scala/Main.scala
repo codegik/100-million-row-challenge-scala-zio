@@ -94,10 +94,7 @@ object Main extends ZIOAppDefault:
     for
       arguments <- args
       inputFile = arguments.headOption.getOrElse("measurements.txt")
-      parallelism = Runtime.defaultExecutor.asInstanceOf[zio.Executor].asExecutionContextExecutorService match
-        case service: java.util.concurrent.ExecutorService =>
-          Runtime.getRuntime.availableProcessors
-        case _ => Runtime.getRuntime.availableProcessors
+      parallelism = java.lang.Runtime.getRuntime.availableProcessors
       _ <- Console.printLine(s"Processing file: $inputFile with parallelism: $parallelism")
       start <- Clock.nanoTime
       output <- processFile(inputFile, parallelism)
