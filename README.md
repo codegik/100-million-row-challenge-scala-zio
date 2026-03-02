@@ -37,21 +37,55 @@ Uses ZIO Streams with parallel processing:
 
 ## Usage
 
+### Quick test
+
+```bash
+make test
+```
+
+This runs the implementation with a small test file to verify correctness.
+
 ### Generate test data
 
 ```bash
-./generate.sh 100000000
+make generate
+```
+
+This generates 100 million rows of test data in `measurements.txt`.
+
+Alternatively, specify a custom number of rows:
+
+```bash
+./generate.sh 10000000
 ```
 
 ### Run the challenge
 
 ```bash
+make run
+```
+
+Or directly:
+
+```bash
 ./run.sh measurements.txt
+```
+
+### Clean
+
+```bash
+make clean
 ```
 
 ## Performance
 
 Results will vary based on hardware. The implementation is optimized for:
-- Multi-core CPU utilization
-- Efficient memory usage with streaming
-- Minimal allocations during processing
+- Multi-core CPU utilization via parallel fiber processing
+- Efficient memory usage with ZIO Streams
+- Chunked processing to balance memory and throughput
+- Minimal allocations during aggregation
+
+Expected performance on modern hardware:
+- 100M rows: ~2-5 seconds (depending on CPU cores and disk I/O)
+
+Compare with the Zig implementation (0.765 seconds) to evaluate JVM overhead and optimization opportunities.

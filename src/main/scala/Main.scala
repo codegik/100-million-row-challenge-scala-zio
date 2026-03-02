@@ -8,10 +8,6 @@ import java.nio.MappedByteBuffer
 import scala.collection.mutable
 import java.net.URI
 
-case class VisitCount(path: String, date: String, count: Int)
-
-case class PathStats(visits: Map[String, Int]) derives JsonEncoder
-
 object Main extends ZIOAppDefault:
 
   def parseUrlPath(url: String): Option[String] =
@@ -68,8 +64,8 @@ object Main extends ZIOAppDefault:
     }.toMap
 
     val sorted = grouped.toSeq.sortBy(_._1).map { case (path, dates) =>
-      val sortedDates = dates.toSeq.sortBy(_._1)
-      (path, PathStats(sortedDates.toMap))
+      val sortedDates = dates.toSeq.sortBy(_._1).toMap
+      (path, sortedDates)
     }.toMap
 
     sorted.toJson
