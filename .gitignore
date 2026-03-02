@@ -1,0 +1,11 @@
+*.class
+*.log
+target/
+project/target/
+.bsp/
+.scala-build/
+measurements.txt
+output.json
+.metals/
+.vscode/
+.idea/
